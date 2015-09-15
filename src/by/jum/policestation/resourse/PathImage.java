@@ -5,7 +5,8 @@ public enum PathImage {
     CAR("src/by/jum/policestation/resourse/image/car2.jpg"),
     BULLET("src/by/jum/policestation/resourse/image/bullet.jpg"),
     POLICE_STATION("src/by/jum/policestation/resourse/image/police1.jpg"),
-    CAR_BOOM("src/by/jum/policestation/resourse/image/car3.jpg");
+    CAR_BOOM("src/by/jum/policestation/resourse/image/car3.jpg"),
+    POLICE_ICON("src/by/jum/policestation/resourse/image/policeIcon.jpg");
 
     private String path;
 

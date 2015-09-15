@@ -1,9 +1,10 @@
 package by.jum.policestation.window;
 
+import by.jum.policestation.controller.LoseController;
 import by.jum.policestation.car.CarController;
 import by.jum.policestation.car.CarModel;
 import by.jum.policestation.car.CarView;
-import by.jum.policestation.terrorist.ShootController;
+import by.jum.policestation.controller.ShootController;
 import by.jum.policestation.terrorist.TerroristController;
 import by.jum.policestation.terrorist.TerroristModel;
 import by.jum.policestation.terrorist.TerroristView;
@@ -24,6 +25,9 @@ public class ShootingPanelModel {
         carController.runCar();
         shootingPanel.add(car);
 
+        LoseController loseController = new LoseController(carController, this);
+        carModel.addObserver(loseController);
+
         TerroristView terrorist = new TerroristView();
         TerroristModel terroristModel = new TerroristModel();
         TerroristController terroristController = new TerroristController(frame, terrorist, terroristModel);
@@ -33,6 +37,7 @@ public class ShootingPanelModel {
 
         ShootController shootController = new ShootController(shootingPanel, terrorist, carController, this);
         shootController.addMovingBullet(frame);
+
 
     }
 
@@ -53,6 +58,13 @@ public class ShootingPanelModel {
         scoreLabel.setText(String.valueOf(Integer.parseInt(scoreLabel.getText()) + 1));
     }
 
+    public void resetScoreLable(){
+        scoreLabel.setText("0");
+    }
+
+    public String getScore(){
+        return scoreLabel.getText();
+    }
 
 }
 

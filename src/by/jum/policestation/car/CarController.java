@@ -39,4 +39,6 @@ public class CarController {
     public void setStandartCar() {
         carModel.setStandartImage();
     }
+
+
 }

@@ -1,10 +1,11 @@
-package by.jum.policestation.terrorist;
+package by.jum.policestation.controller;
 
 import by.jum.policestation.bullet.BulletController;
 import by.jum.policestation.bullet.BulletModel;
 import by.jum.policestation.bullet.BulletView;
 import by.jum.policestation.car.CarController;
 import by.jum.policestation.resourse.Control;
+import by.jum.policestation.terrorist.TerroristView;
 import by.jum.policestation.window.ShootingPanelModel;
 
 import javax.swing.JFrame;
@@ -34,24 +35,22 @@ public class ShootController {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyChar() == Control.FIRE) {
-                    bullet = new BulletView();
-                    bullet.setBounds(terrorist.getX() + 16, terrorist.getY() - 11, 10, 15);
-                    panel.add(bullet);
+                    if (carController.getAlignmentY() + 99 < terrorist.getY() - 11) {
+                        bullet = new BulletView();
+                        bullet.setBounds(terrorist.getX() + 16, terrorist.getY() - 11, 10, 15);
+                        panel.add(bullet);
 
-                    BulletController bulletController = new BulletController(bullet, new BulletModel());
-                    bulletController.runBullet();
+                        BulletController bulletController = new BulletController(bullet, new BulletModel());
+                        bulletController.runBullet();
 
-                    int distance = bullet.getY() - carController.getAlignmentY() - 80;
-                    System.out.println(distance + " " + carController.getAlignmentY());
-
-                    long time = (long) (distance / 1.1);
-                    if (carController.getAlignmentX() + 16 == bullet.getX()) {
-                        makeBoom(bulletController, time);
-                        thread.start();
-                        addCarScore();
+                        int distance = bullet.getY() - carController.getAlignmentY() - 80;
+                        long time = (long) (distance / 1.1);
+                        if (carController.getAlignmentX() + 16 == bullet.getX()) {
+                            makeBoom(bulletController, time);
+                            thread.start();
+                        }
                     }
                 }
-
             }
 
         });
@@ -64,6 +63,7 @@ public class ShootController {
                 bulletController.stopBullet();
                 carController.setBoomCar();
                 carController.stopCar();
+                addCarScore();
                 Thread.sleep(100);
                 carController.setStandartCar();
                 carController.setRandomPositionCar();
@@ -73,7 +73,6 @@ public class ShootController {
             }
         });
     }
-
 
     private void addCarScore() {
         shootingPanelModel.addScore();

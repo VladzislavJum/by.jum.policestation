@@ -1,15 +1,15 @@
 package by.jum.policestation.car;
 
 import by.jum.policestation.resourse.PathImage;
-import by.jum.policestation.window.MainMenuWindow;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 import javax.swing.Timer;
 import java.io.File;
 import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
 
-public class CarModel {
+public class CarModel extends Observable{
     private Timer timer;
     private CarView carView;
 
@@ -18,9 +18,7 @@ public class CarModel {
         carView.setBounds(780, 170, 40, 99);
         timer = new Timer(2, e -> {
             carView.setBounds((int) carView.getBounds().getX(), (int) carView.getBounds().getY() + 1, 40, 99);
-            if (carView.getY() == 650) {
-                carView.setBounds(780, 170, 40, 99);
-            }
+            checkAlive();
         });
     }
 
@@ -47,6 +45,13 @@ public class CarModel {
             carView.repaint();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void checkAlive(){
+        if (carView.getY() ==740) {
+            super.setChanged();
+            notifyObservers();
         }
     }
 }
