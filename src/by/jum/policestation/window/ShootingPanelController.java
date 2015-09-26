@@ -25,4 +25,12 @@ public class ShootingPanelController {
     public void addScoreLabel() {
         shootingPanelModel.addScoreLabel(shootingPanel);
     }
+
+    public void addLiveLable(){
+        shootingPanelModel.addLiveLabel(shootingPanel);
+    }
+
+    public void addHeart(){
+        shootingPanelModel.addHeart(shootingPanel);
+    }
 }

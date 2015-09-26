@@ -1,9 +1,10 @@
 package by.jum.policestation.car;
 
-import by.jum.policestation.resourse.PathImage;
+import by.jum.policestation.resourse.Path;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -15,21 +16,30 @@ public class CarView extends JComponent {
     private BufferedImage image;
 
     public CarView() {
-        setBounds(780, 170, 40, 99);
         try {
-            image = ImageIO.read(new File(PathImage.CAR.getPath()));
+            image = ImageIO.read(new File(Path.CAR.getPath()));
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showConfirmDialog(null, "ERROR! Image not found", "Information", JOptionPane.CLOSED_OPTION);
+            System.exit(0);
         }
+        setStandartBounds();
+
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D graphics2D = (Graphics2D) g;
-        graphics2D.drawImage(image, 0, 0, 40, 99, this);
+        graphics2D.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), this);
     }
 
     public void setImage(BufferedImage bufferedImage){
         image = bufferedImage;
+        setBounds(getX() - 30, getY(), 100, 123);
+        repaint();
     }
+
+    public void setStandartBounds(){
+        setBounds(780, 170, 40, 99);
+    }
+
 }

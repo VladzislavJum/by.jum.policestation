@@ -1,5 +1,7 @@
 package by.jum.policestation.car;
 
+import by.jum.policestation.resourse.Position;
+
 import java.awt.Rectangle;
 import java.util.Random;
 
@@ -14,6 +16,6 @@ public class BoxGenerator {
 
     public Rectangle getRandomBoundsCar() {
         int numberBox = random.nextInt(countBox);
-        return new Rectangle(180 + numberBox * 200, 170, 40, 99);
+        return new Rectangle(Position.FIRST_BOX_POSITION.getPosition() + numberBox * 200, 170, 40, 99);
     }
 }

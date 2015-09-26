@@ -1,8 +1,9 @@
 package by.jum.policestation.window;
 
-import by.jum.policestation.resourse.PathImage;
+import by.jum.policestation.resourse.Path;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -17,13 +18,12 @@ public class ShootingPanel extends JPanel {
     public ShootingPanel() {
         setLayout(null);
         try {
-            policeStationImage = ImageIO.read(new File(PathImage.POLICE_STATION.getPath()));
+            policeStationImage = ImageIO.read(new File(Path.POLICE_STATION.getPath()));
         } catch (IOException ex) {
-            ex.printStackTrace();
+            JOptionPane.showConfirmDialog(null, "ERROR! Image not found", "Information", JOptionPane.CLOSED_OPTION);
+            System.exit(0);
         }
-
     }
-
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -31,5 +31,4 @@ public class ShootingPanel extends JPanel {
         graphics2D.setColor(Color.red);
         g.drawImage(policeStationImage, 0, 0, null);
     }
-
 }

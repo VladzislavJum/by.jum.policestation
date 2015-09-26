@@ -5,10 +5,12 @@ import by.jum.policestation.car.CarController;
 import by.jum.policestation.car.CarModel;
 import by.jum.policestation.car.CarView;
 import by.jum.policestation.controller.ShootController;
+import by.jum.policestation.resourse.Path;
 import by.jum.policestation.terrorist.TerroristController;
 import by.jum.policestation.terrorist.TerroristModel;
 import by.jum.policestation.terrorist.TerroristView;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Color;
@@ -17,6 +19,7 @@ import java.awt.Font;
 public class ShootingPanelModel {
     private int countBox;
     private JLabel scoreLabel;
+    private JLabel liveLable;
 
     public void addMovingEnemies(JFrame frame, ShootingPanel shootingPanel) {
         CarView car = new CarView();
@@ -37,8 +40,6 @@ public class ShootingPanelModel {
 
         ShootController shootController = new ShootController(shootingPanel, terrorist, carController, this);
         shootController.addMovingBullet(frame);
-
-
     }
 
     public void addScoreLabel(ShootingPanel shootingPanel) {
@@ -50,6 +51,15 @@ public class ShootingPanelModel {
         shootingPanel.add(scoreLabel);
     }
 
+    public void addLiveLabel(ShootingPanel shootingPanel){
+        liveLable = new JLabel("3");
+        liveLable.setBounds(150, 15, 150, 100);
+        liveLable.setFont(new Font("Calibri", Font.BOLD, 80));
+        liveLable.setForeground(Color.WHITE);
+
+        shootingPanel.add(liveLable);
+    }
+
     public void setCountBox(int countBox) {
         this.countBox = countBox;
     }
@@ -58,12 +68,25 @@ public class ShootingPanelModel {
         scoreLabel.setText(String.valueOf(Integer.parseInt(scoreLabel.getText()) + 1));
     }
 
-    public void resetScoreLable(){
+    public void diffLive() {
+        liveLable.setText(String.valueOf(Integer.parseInt(liveLable.getText()) - 1));
+    }
+
+    public void resetScoreAndLiveLable(){
         scoreLabel.setText("0");
+        liveLable.setText("3");
     }
 
     public String getScore(){
         return scoreLabel.getText();
+    }
+
+    public void addHeart(ShootingPanel shootingPanel){
+        JLabel label = new JLabel();
+        label.setIcon(new ImageIcon(Path.HEART_ICON.getPath()));
+        label.setBounds(20, 3, 100, 100);
+
+        shootingPanel.add(label);
     }
 
 }

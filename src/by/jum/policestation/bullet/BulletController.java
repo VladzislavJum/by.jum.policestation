@@ -9,13 +9,12 @@ public class BulletController {
         this.bulletModel = bulletModel;
     }
 
-    public void runBullet(){
+    public void runBullet() {
         bulletModel.startBullet(bulletView);
     }
 
-    public void stopBullet(){
+    public void stopBullet() {
         bulletView.setVisible(false);
         bulletModel.stopBullet();
     }
-
 }

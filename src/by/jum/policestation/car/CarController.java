@@ -40,5 +40,7 @@ public class CarController {
         carModel.setStandartImage();
     }
 
-
+    public void setStandartSpeedAndCount() {
+        carModel.setStartSpeedAndCount();
+    }
 }

@@ -1,9 +1,10 @@
 package by.jum.policestation.terrorist;
 
-import by.jum.policestation.resourse.PathImage;
+import by.jum.policestation.resourse.Path;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -16,9 +17,10 @@ public class TerroristView extends JComponent {
 
     public TerroristView() {
         try {
-            image = ImageIO.read(new File(PathImage.TERRORIST.getPath()));
+            image = ImageIO.read(new File(Path.TERRORIST.getPath()));
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showConfirmDialog(null, "ERROR! Image not found", "Information", JOptionPane.CLOSED_OPTION);
+            System.exit(0);
         }
     }
 

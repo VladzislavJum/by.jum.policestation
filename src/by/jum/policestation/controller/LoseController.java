@@ -11,17 +11,25 @@ import java.util.Observer;
 public class LoseController implements Observer {
     private CarController carController;
     private ShootingPanelModel shootingPanelModel;
+    private int live;
 
     public LoseController(CarController carController, ShootingPanelModel shootingPanelModel) {
         this.carController = carController;
         this.shootingPanelModel = shootingPanelModel;
+        live = 0;
     }
 
 
     @Override
     public void update(Observable o, Object arg) {
-        carController.stopCar();
-        showLooseDialog();
+        shootingPanelModel.diffLive();
+        if (++live == 3) {
+            carController.stopCar();
+            showLooseDialog();
+            live = 0;
+            return;
+        }
+        carController.setRandomPositionCar();
     }
 
     private void showLooseDialog() {
@@ -32,7 +40,8 @@ public class LoseController implements Observer {
         if (response == JOptionPane.NO_OPTION) {
             System.exit(0);
         } else if (response == JOptionPane.YES_OPTION) {
-            shootingPanelModel.resetScoreLable();
+            shootingPanelModel.resetScoreAndLiveLable();
+            carController.setStandartSpeedAndCount();
             carController.runCar();
             carController.setRandomPositionCar();
         } else if (response == JOptionPane.CLOSED_OPTION) {
